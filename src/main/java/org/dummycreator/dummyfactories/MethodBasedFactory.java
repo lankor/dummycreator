@@ -7,16 +7,17 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.dummycreator.ClassBindings;
 import org.dummycreator.ClassUsageInfo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * @author Benny Bottema <b.bottema@projectnibble.org> (further developed project)
  */
 public class MethodBasedFactory<T> extends DummyFactory<T> {
 
-	private static final Logger logger = Logger.getLogger(MethodBasedFactory.class);
+	private static final Logger logger = LoggerFactory.getLogger(MethodBasedFactory.class);
 
 	private final Method method;
 

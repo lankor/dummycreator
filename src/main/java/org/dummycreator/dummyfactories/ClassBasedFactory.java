@@ -13,7 +13,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.codemonkey.javareflection.FieldUtils;
 import org.codemonkey.javareflection.FieldUtils.BeanRestriction;
 import org.codemonkey.javareflection.FieldUtils.Visibility;
@@ -22,6 +21,8 @@ import org.dummycreator.ClassBindings;
 import org.dummycreator.ClassUsageInfo;
 import org.dummycreator.RandomCreator;
 import org.dummycreator.ReflectionCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Creates a populated dummy object of a given class <code>T</code>. First tries to defer creation using {@link #classBindings}, if no class
@@ -36,7 +37,7 @@ import org.dummycreator.ReflectionCache;
  */
 public class ClassBasedFactory<T> extends DummyFactory<T> {
 
-	private static final Logger logger = Logger.getLogger(ClassBasedFactory.class);
+	private static final Logger logger = LoggerFactory.getLogger(ClassBasedFactory.class);
 
 	/**
 	 * The class to create (and populate).

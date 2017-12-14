@@ -43,9 +43,22 @@ public class RandomPrimitiveFactory<T> extends DummyFactory<T> {
 	 * The primitive type that should be created.
 	 */
 	private final Class<T> clazz;
+	private T min;
+	private T max;
 
 	public RandomPrimitiveFactory(final Class<T> clazz) {
 		this.clazz = clazz;
+	}
+	
+	public RandomPrimitiveFactory(final Class<T> clazz, final T max) {
+		this.clazz = clazz;
+		this.max = max;
+	}
+	
+	public RandomPrimitiveFactory(final Class<T> clazz, final T min, final T max) {
+		this.clazz = clazz;
+		this.min = min;
+		this.max = max;
 	}
 
 	/**
@@ -76,21 +89,58 @@ public class RandomPrimitiveFactory<T> extends DummyFactory<T> {
 	public T createDummy(final Type[] genericMetaData, final Map<String, ClassUsageInfo<?>> knownInstances,
 			final ClassBindings classBindings, final List<Exception> exceptions) {
 		if (clazz == int.class) {
-			return (T) (Integer) RandomCreator.getInstance().getRandomInt();
+			if (min == null && max == null) {
+				return (T) (Integer) RandomCreator.getInstance().getRandomInt();
+			} else if (min != null && max != null) {
+				return (T) (Integer) RandomCreator.getInstance().getRandomInt((Integer) min, (Integer) max);
+			} else if (max != null) {
+				return (T) (Integer) RandomCreator.getInstance().getRandomInt((Integer) max);
+			}
 		} else if (clazz == long.class) {
-			return (T) (Long) RandomCreator.getInstance().getRandomLong();
+			if (min == null && max == null) {
+				return (T) (Long) RandomCreator.getInstance().getRandomLong();
+			} else if (min != null && max != null) {
+				return (T) (Long) RandomCreator.getInstance().getRandomLong((Long) min, (Long) max);
+			} else if (max != null) {
+				return (T) (Long) RandomCreator.getInstance().getRandomLong((Long) max);
+			}
+			
 		} else if (clazz == float.class) {
-			return (T) (Float) RandomCreator.getInstance().getRandomFloat();
+			if (min == null && max == null) {
+				return (T) (Float) RandomCreator.getInstance().getRandomFloat();
+			} else if (min != null && max != null) {
+				return (T) (Float) RandomCreator.getInstance().getRandomFloat((Float) min, (Float) max);
+			} else if (max != null) {
+				return (T) (Float) RandomCreator.getInstance().getRandomFloat((Float) max);
+			}
 		} else if (clazz == boolean.class) {
 			return (T) (Boolean) RandomCreator.getInstance().getRandomBoolean();
 		} else if (clazz == char.class) {
 			return (T) (Character) RandomCreator.getInstance().getRandomChar();
 		} else if (clazz == byte.class) {
-			return (T) (Byte) RandomCreator.getInstance().getRandomByte();
+			if (min == null && max == null) {
+				return (T) (Byte) RandomCreator.getInstance().getRandomByte();
+			} else if (min != null && max != null) {
+				return (T) (Byte) RandomCreator.getInstance().getRandomByte((Byte) min, (Byte) max);
+			} else if (max != null) {
+				return (T) (Byte) RandomCreator.getInstance().getRandomByte((Byte) max);
+			}
 		} else if (clazz == short.class) {
-			return (T) (Short) RandomCreator.getInstance().getRandomShort();
+			if (min == null && max == null) {
+				return (T) (Short) RandomCreator.getInstance().getRandomShort();
+			} else if (min != null && max != null) {
+				return (T) (Short) RandomCreator.getInstance().getRandomShort((Short) min, (Short) max);
+			} else if (max != null) {
+				return (T) (Short) RandomCreator.getInstance().getRandomShort((Short) max);
+			}
 		} else if (clazz == double.class) {
-			return (T) (Double) RandomCreator.getInstance().getRandomDouble();
+			if (min == null && max == null) {
+				return (T) (Double) RandomCreator.getInstance().getRandomDouble();
+			} else if (min != null && max != null) {
+				return (T) (Double) RandomCreator.getInstance().getRandomDouble((Double) min, (Double) max);
+			} else if (max != null) {
+				return (T) (Double) RandomCreator.getInstance().getRandomDouble((Double) max);
+			}
 		}
 		return null;
 	}

@@ -512,7 +512,6 @@ public class DummyCreatorTest {
     BigDecimal bigDecimal = dummyCreator.create(BigDecimal.class);
     assertNotNull(bigDecimal);
     assertEquals(new BigDecimal(33686018), bigDecimal);
-    System.out.println(bigDecimal);
     dummyCreator = new DummyCreator(ClassBindings.defaultBindings());
     bigDecimal = dummyCreator.create(BigDecimal.class);
     assertNotNull(bigDecimal);

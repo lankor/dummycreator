@@ -57,27 +57,40 @@
     <url>http://code.google.com/p/dummycreator/issues/</url>
   </issueManagement>
   
+  <properties>
+	  <junit.version>4.12</junit.version>
+	  <easymock.version>3.4</easymock.version>
+	  <java.reflection.version>1.1</java.reflection.version>
+	  <logback.version>1.1.7</logback.version>
+  </properties>
+  
   <dependencies>
     <dependency>
-      <groupId>log4j</groupId>
-      <artifactId>log4j</artifactId>
-      <version>1.2.17</version>
-    </dependency>
+		<groupId>ch.qos.logback</groupId>
+		<artifactId>logback-classic</artifactId>
+		<version>${logback.version}</version>
+	</dependency>
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
-      <version>4.12</version>
+      <version>${junit.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.easymock</groupId>
       <artifactId>easymock</artifactId>
-      <version>3.4</version>
+      <version>${easymock.version}</version>
     </dependency>
     <dependency>
       <groupId>org.codemonkey.javareflection</groupId>
       <artifactId>java-reflection</artifactId>
-      <version>1.1</version>
+      <exclusions>
+      	<exclusion>
+      		<groupId>junit</groupId>
+      		<artifactId>junit</artifactId>
+      	</exclusion>
+      </exclusions>
+      <version>${java.reflection.version}</version>
     </dependency>
   </dependencies>
   

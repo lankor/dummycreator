@@ -12,7 +12,7 @@ import org.junit.Test;
 public class FieldDummyFactoryTest {
 	
 	@Test
-	public void testCharset() {
+	public void testFieldDummyFactory() {
 		FieldBindings bindings = new FieldBindings();
 		bindings.add("bigDecimalWithMax", new BigDecimalFactory(0d, 10d));
 		bindings.add("bigDecimalWithRouning", new BigDecimalFactory(4, BigDecimal.ROUND_HALF_UP));
@@ -21,5 +21,22 @@ public class FieldDummyFactoryTest {
 		DummyCreator creator = new DummyCreator(bindings);
 		BigDecimalClass dummy = creator.createFields(BigDecimalClass.class);
 		Assert.assertNotNull(dummy);
+		Assert.assertNotNull(dummy.getBigDecimalWithMax());
+		Assert.assertNotNull(dummy.getBigDecimalWithRouning());
+		Assert.assertNotNull(dummy.getBigDecimalWithRouningContext());
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testFieldDummyFactoryWrongType() {
+		FieldBindings bindings = new FieldBindings();
+		bindings.add("bigDecimalWithMax", new BigDecimalFactory(0d, 10d));
+		bindings.add("bigDecimalWithRouning", new BigDecimalFactory(4, BigDecimal.ROUND_HALF_UP));
+		bindings.add("bigDecimalWithRouningContext", new ClassBasedFactory<String>(String.class));
+		
+		DummyCreator creator = new DummyCreator(bindings);
+		BigDecimalClass dummy = creator.createFields(BigDecimalClass.class);
+		Assert.assertNotNull(dummy);
+		Assert.assertNotNull(dummy.getBigDecimalWithMax());
+		Assert.assertNotNull(dummy.getBigDecimalWithRouning());
 	}
 }

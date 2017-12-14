@@ -11,7 +11,6 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.codemonkey.javareflection.FieldUtils;
 import org.codemonkey.javareflection.FieldWrapper;
 import org.codemonkey.javareflection.FieldUtils.BeanRestriction;
@@ -20,9 +19,11 @@ import org.dummycreator.ClassBindings;
 import org.dummycreator.ClassUsageInfo;
 import org.dummycreator.FieldBindings;
 import org.dummycreator.ReflectionCache;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class FieldDummyFactory<T> extends DummyFactory<T> {
-	private static final Logger logger = Logger.getLogger(FieldDummyFactory.class);
+	private static final Logger logger = LoggerFactory.getLogger(FieldDummyFactory.class);
 	/**
 	 * The class to create (and populate).
 	 */
@@ -76,17 +77,19 @@ public class FieldDummyFactory<T> extends DummyFactory<T> {
 						try {
 							method.invoke(retDummy, retField);
 						} catch (IllegalAccessException ex) {
-							
+							throw new IllegalArgumentException(String.format("Could not instantiate object for type [%s], is it abstract and missing a binding?", clazz));
 						} catch (InvocationTargetException ex) {
-							
+							throw new IllegalArgumentException(String.format("Could not instantiate object for type [%s], is it abstract and missing a binding?", clazz));
+						} catch (IllegalArgumentException ex) {
+							throw new IllegalArgumentException(String.format("The type [%s] for field [%s] is wrong.", retField.getClass().getName(), field));
 						}
 					}
 				}
 			}
 		} catch (InstantiationException ex) {
-			
+			throw new IllegalArgumentException(String.format("Could not instantiate object for type [%s]", clazz), ex);
 		} catch (IllegalAccessException ex) {
-			
+			throw new IllegalArgumentException(String.format("Could not instantiate object for type [%s]", clazz), ex);
 		}
 		
 		return retDummy;

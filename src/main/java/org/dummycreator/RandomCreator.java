@@ -66,6 +66,14 @@ public class RandomCreator {
 	public float getRandomFloat() {
 		return r.nextInt(100) + (float) Math.round(r.nextFloat() * 100) / 100;
 	}
+	
+	public float getRandomFloat(float max) {
+		return r.nextFloat() * max;
+	}
+	
+	public float getRandomFloat(float min, float max) {
+		return getRandomFloat(max - min) + min; 
+	}
 
 	/**
 	 * @return A double value between 00.00 and 100.00
@@ -88,5 +96,65 @@ public class RandomCreator {
 
 	public static RandomCreator getInstance() {
 		return instance;
+	}
+
+	public int getRandomInt(final int min, final int max) {
+		return getRandomInt(max - min) + min;
+	}
+
+	public long getRandomLong(long min, long max) {
+		int diff = (int) (max - min);
+		long diffL = max - min;
+		
+		if (diff > 0 && diff < Integer.MAX_VALUE) {
+			return r.nextInt(diff) + min;
+		} else {
+			long l = r.nextLong();
+			if (l >= min && l < max) {
+				return l;
+			} else if (diffL > Integer.MAX_VALUE) {
+				return min + r.nextInt(Integer.MAX_VALUE);
+			}
+			return min;
+		}
+		
+	}
+
+	public long getRandomLong(long max) {
+		if (max > Integer.MAX_VALUE) {
+			long l = r.nextLong();
+			if (l > max) {
+				return (long) r.nextInt(Integer.MAX_VALUE);
+			}
+			
+			return l;
+		} else {
+			return (long) r.nextInt((int) max);
+		}
+	}
+
+	public byte getRandomByte(byte min, byte max) {
+		int diff = max - min;
+		return (byte) (r.nextInt(diff) + min);
+	}
+
+	public byte getRandomByte(byte max) {
+		return (byte) r.nextInt((int) max);
+	}
+
+	public short getRandomShort(short min, short max) {
+		return (short) (getRandomShort((short) (max - min)) + min);
+	}
+
+	public short getRandomShort(short max) {
+		return (short) r.nextInt((int) max);
+	}
+
+	public double getRandomDouble(double min, double max) {
+		return getRandomDouble(max -min) + min;
+	}
+
+	public double getRandomDouble(double max) {
+		return r.nextDouble() * max;
 	}
 }
