@@ -142,7 +142,6 @@ public class ClassBasedFactory<T> extends DummyFactory<T> {
 					/**
 					 * Comparator to sort constructors by their number of parameters
 					 */
-					@Override
 					public int compare(final Constructor<?> o1, final Constructor<?> o2) {
 						final int num_o1 = o1.getParameterTypes().length;
 						final int num_o2 = o2.getParameterTypes().length;

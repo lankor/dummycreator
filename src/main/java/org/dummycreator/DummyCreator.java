@@ -15,6 +15,7 @@
 package org.dummycreator;
 
 import org.dummycreator.dummyfactories.ClassBasedFactory;
+import org.dummycreator.dummyfactories.FieldDummyFactory;
 
 /**
  * Tool to create populated dummy objects of a given class. This tool will recursively run through its setters and try to come up with newly
@@ -37,6 +38,9 @@ public class DummyCreator {
 	 * @see ClassBindings
 	 */
 	private final ClassBindings classBindings;
+	
+	private final FieldBindings fieldBindings;
+	
 
 	/**
 	 * Default constructor: configures the Dummy Creator with vanilla new bindings and caches.
@@ -44,11 +48,21 @@ public class DummyCreator {
 	public DummyCreator() {
 		this(new ClassBindings());
 	}
+	
+	public DummyCreator(final FieldBindings fieldBindings) {
+		this(new ClassBindings(), fieldBindings);
+	}
 
 	/**
 	 * Constructor: configures the Dummy Creator with a given {@link ClassBindings} instance and new caches.
 	 */
 	public DummyCreator(final ClassBindings classBindings) {
+		this.classBindings = classBindings;
+		this.fieldBindings = null;
+	}
+
+	public DummyCreator(ClassBindings classBindings, FieldBindings fieldBindings) {
+		this.fieldBindings = fieldBindings;
 		this.classBindings = classBindings;
 	}
 
@@ -67,5 +81,9 @@ public class DummyCreator {
 	 */
 	public <T> T create(final Class<T> clazz) {
 		return new ClassBasedFactory<T>(clazz).createDummy(classBindings);
+	}
+	
+	public <T> T createFields(final Class<T> clazz) {
+		return new FieldDummyFactory<T>(clazz).createDummy(classBindings, fieldBindings);
 	}
 }
