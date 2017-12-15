@@ -15,7 +15,7 @@
 package org.dummycreator;
 
 import org.dummycreator.dummyfactories.ClassBasedFactory;
-import org.dummycreator.dummyfactories.FieldDummyFactory;
+import org.dummycreator.dummyfactories.FieldBasedFactory;
 
 /**
  * Tool to create populated dummy objects of a given class. This tool will recursively run through its setters and try to come up with newly
@@ -83,10 +83,10 @@ public class DummyCreator {
 		return new ClassBasedFactory<T>(clazz).createDummy(classBindings);
 	}
 	
-	public <T> T createFields(final Class<T> clazz) {
+	public <T> T createByFields(final Class<T> clazz) {
 		if (fieldBindings == null) {
 			throw new IllegalArgumentException("Field configuration is not initialized!");
 		}
-		return new FieldDummyFactory<T>(clazz).createDummy(classBindings, fieldBindings);
+		return new FieldBasedFactory<T>(clazz).createDummy(classBindings, fieldBindings);
 	}
 }

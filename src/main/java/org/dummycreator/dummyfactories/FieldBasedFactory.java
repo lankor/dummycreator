@@ -1,20 +1,18 @@
 package org.dummycreator.dummyfactories;
 
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang.StringUtils;
 import org.codemonkey.javareflection.FieldUtils;
-import org.codemonkey.javareflection.FieldWrapper;
 import org.codemonkey.javareflection.FieldUtils.BeanRestriction;
 import org.codemonkey.javareflection.FieldUtils.Visibility;
+import org.codemonkey.javareflection.FieldWrapper;
 import org.dummycreator.ClassBindings;
 import org.dummycreator.ClassUsageInfo;
 import org.dummycreator.FieldBindings;
@@ -22,8 +20,8 @@ import org.dummycreator.ReflectionCache;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class FieldDummyFactory<T> extends DummyFactory<T> {
-	private static final Logger logger = LoggerFactory.getLogger(FieldDummyFactory.class);
+public class FieldBasedFactory<T> extends DummyFactory<T> {
+	private static final Logger logger = LoggerFactory.getLogger(FieldBasedFactory.class);
 	/**
 	 * The class to create (and populate).
 	 */
@@ -31,7 +29,7 @@ public class FieldDummyFactory<T> extends DummyFactory<T> {
 	
 	private static final ReflectionCache constructorCache = new ReflectionCache();
 
-	public FieldDummyFactory(final Class<T> clazz) {
+	public FieldBasedFactory(final Class<T> clazz) {
 		this.clazz = clazz;
 	}
 
@@ -53,7 +51,7 @@ public class FieldDummyFactory<T> extends DummyFactory<T> {
 		
 		try {
 			
-			//Si existe un factory para el tipo dummy, la usamos
+			//If there is a factory for the type of the object, we use it
 			final DummyFactory<T> factory = classBindings.find(clazz);
 			if (factory != null) {
 				retDummy = factory.createDummy(classBindings);
@@ -64,7 +62,7 @@ public class FieldDummyFactory<T> extends DummyFactory<T> {
 				
 				for (Method method : setters) {
 					String field = getFieldName(method.getName());
-					//Buscamos la factory del campo
+					//We are looking for the factory field
 					final DummyFactory<T> fieldFactory = fieldBindings.find(field);
 					if (fieldFactory != null) {
 						retField = fieldFactory.createDummy(classBindings);
@@ -95,39 +93,15 @@ public class FieldDummyFactory<T> extends DummyFactory<T> {
 		return retDummy;
 	}
 	
+	/**
+	 * 
+	 * @param name Setter method name
+	 * @return The field name for the setter method
+	 */
 	private String getFieldName(String name) {
-		name = name.replaceFirst("set", "");
-		String remaining = name.substring(1);
-		String start = String.valueOf(Character.toLowerCase(name.charAt(0)));
-		
-		return start + remaining;
+		return StringUtils.uncapitalize(name.replaceFirst("set", ""));
 	}
 
-	private void populateObject(final T subject, final Type[] genericMetaData, final Map<String, ClassUsageInfo<?>> knownInstances, final ClassBindings classBindings, final List<Exception> exceptions) {
-		if (subject instanceof Collection) {
-//			populateCollection((Collection<Object>) subject, genericMetaData, knownInstances, classBindings, exceptions);
-		} else if (subject instanceof Map) {
-//			populateMap((Map<Object, Object>) subject, genericMetaData, knownInstances, classBindings, exceptions);
-		} else {
-			// populate POJO using it's bean setters (which should always contain exactly one parameter)
-			// by creating a new dummy using a ClassBasedFactory for each Method's parameter and finally invoke the method itself
-			for (final Method setter : discoverSetters(subject.getClass())) {
-				// collect generics meta data if available
-				final ClassBasedFactory<T> factory = new ClassBasedFactory<T>((Class<T>) setter.getParameterTypes()[0]);
-				final Type genericParameterType = setter.getGenericParameterTypes()[0];
-				final boolean isRawClassItself = genericParameterType instanceof Class;
-				final Type[] nextGenericsMetaData = isRawClassItself ? null : ((ParameterizedType) genericParameterType).getActualTypeArguments();
-				// finally create the parameter with or without generics meta data
-				final Object parameter = factory.createDummy(nextGenericsMetaData, knownInstances, classBindings, exceptions);
-				try {
-					setter.invoke(subject, parameter);
-				} catch (final Exception e) {
-//					logger.error("error calling setter method [" + setter.getName() + "]", e);
-				}
-			}
-		}
-	}
-	
 	/**
 	 * @param clazz The subject from which to extract setter methods.
 	 * @return A list of all bean setter methods.

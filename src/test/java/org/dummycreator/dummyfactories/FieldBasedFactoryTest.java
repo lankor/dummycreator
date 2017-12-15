@@ -9,7 +9,7 @@ import org.dummycreator.helperutils.BigDecimalClass;
 import org.junit.Assert;
 import org.junit.Test;
 
-public class FieldDummyFactoryTest {
+public class FieldBasedFactoryTest {
 	
 	@Test
 	public void testFieldDummyFactory() {
@@ -19,7 +19,7 @@ public class FieldDummyFactoryTest {
 		bindings.add("bigDecimalWithRouningContext", new BigDecimalFactory(2, RoundingMode.HALF_UP));
 		
 		DummyCreator creator = new DummyCreator(bindings);
-		BigDecimalClass dummy = creator.createFields(BigDecimalClass.class);
+		BigDecimalClass dummy = creator.createByFields(BigDecimalClass.class);
 		Assert.assertNotNull(dummy);
 		Assert.assertNotNull(dummy.getBigDecimalWithMax());
 		Assert.assertNotNull(dummy.getBigDecimalWithRouning());
@@ -34,7 +34,7 @@ public class FieldDummyFactoryTest {
 		bindings.add("bigDecimalWithRouningContext", new ClassBasedFactory<String>(String.class));
 		
 		DummyCreator creator = new DummyCreator(bindings);
-		BigDecimalClass dummy = creator.createFields(BigDecimalClass.class);
+		BigDecimalClass dummy = creator.createByFields(BigDecimalClass.class);
 		Assert.assertNotNull(dummy);
 		Assert.assertNotNull(dummy.getBigDecimalWithMax());
 		Assert.assertNotNull(dummy.getBigDecimalWithRouning());
