@@ -84,6 +84,9 @@ public class DummyCreator {
 	}
 	
 	public <T> T createFields(final Class<T> clazz) {
+		if (fieldBindings == null) {
+			throw new IllegalArgumentException("Field configuration is not initialized!");
+		}
 		return new FieldDummyFactory<T>(clazz).createDummy(classBindings, fieldBindings);
 	}
 }
