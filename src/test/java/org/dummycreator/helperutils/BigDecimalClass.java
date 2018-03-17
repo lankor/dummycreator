@@ -4,8 +4,8 @@ import java.math.BigDecimal;
 
 public class BigDecimalClass {
 	private BigDecimal bigDecimalWithMax;
-	private BigDecimal bigDecimalWithRouning;
-	private BigDecimal bigDecimalWithRouningContext;
+	private BigDecimal bigDecimalWithRounding;
+	private BigDecimal bigDecimalWithRoundingContext;
 
 	public BigDecimal getBigDecimalWithMax() {
 		return bigDecimalWithMax;
@@ -15,20 +15,20 @@ public class BigDecimalClass {
 		this.bigDecimalWithMax = bigDecimalWithMax;
 	}
 
-	public BigDecimal getBigDecimalWithRouning() {
-		return bigDecimalWithRouning;
+	public BigDecimal getBigDecimalWithRounding() {
+		return bigDecimalWithRounding;
 	}
 
-	public void setBigDecimalWithRouning(BigDecimal bigDecimalWithRouning) {
-		this.bigDecimalWithRouning = bigDecimalWithRouning;
+	public void setBigDecimalWithRounding(BigDecimal bigDecimalWithRouning) {
+		this.bigDecimalWithRounding = bigDecimalWithRouning;
 	}
 
-	public BigDecimal getBigDecimalWithRouningContext() {
-		return bigDecimalWithRouningContext;
+	public BigDecimal getBigDecimalWithRoundingContext() {
+		return bigDecimalWithRoundingContext;
 	}
 
-	public void setBigDecimalWithRouningContext(BigDecimal bigDecimalWithRouningContext) {
-		this.bigDecimalWithRouningContext = bigDecimalWithRouningContext;
+	public void setBigDecimalWithRoundingContext(BigDecimal bigDecimalWithRouningContext) {
+		this.bigDecimalWithRoundingContext = bigDecimalWithRouningContext;
 	}
 
 }

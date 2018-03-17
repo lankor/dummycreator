@@ -13,15 +13,26 @@ import org.dummycreator.ClassUsageInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Creates a {@link BigDecimal} instance with the given conditions.
+ * 
+ * <p>
+ * By default the factory returns {@link BigDecimal} instances between <code>0</code> and <code>Double.MAX_VALUE</code> 
+ * </p>
+ * 
+ * @author Luis Cardenas <luis.cardeno@gmail.com>
+ *
+ */
 public class BigDecimalFactory extends DummyFactory<BigDecimal> {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BigDecimalFactory.class);
 	
+	private Random random;
 	private MathContext context;
 	private double min;
 	private double max;
 	
 	public BigDecimalFactory() {
-		this(0d, 10000d);
+		this(0d, Double.MAX_VALUE);
 	}
 	
 	public BigDecimalFactory(MathContext context) {
@@ -40,6 +51,7 @@ public class BigDecimalFactory extends DummyFactory<BigDecimal> {
 	public BigDecimalFactory(double min, double max) {
 		this.min = min;
 		this.max = max;
+		this.random = new Random();
 	}
 	
 	public BigDecimalFactory(double min, double max, MathContext context) {
@@ -61,8 +73,11 @@ public class BigDecimalFactory extends DummyFactory<BigDecimal> {
 		return createDummy();
 	}
 	
+	/**
+	 * Returns a big decimal with the conditions given to the factory.
+	 * @return Random BigDecimal
+	 */
 	public BigDecimal createDummy() {
-		Random random = new Random();
 		
 		double d = random.nextDouble() * this.max;
 		

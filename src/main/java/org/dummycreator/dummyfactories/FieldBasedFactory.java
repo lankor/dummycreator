@@ -42,7 +42,7 @@ public class FieldBasedFactory<T> extends DummyFactory<T> {
 	
 	public T createDummy(Type[] genericMetaData, Map<String, ClassUsageInfo<?>> knownInstances,
 			ClassBindings classBindings, FieldBindings fieldBindings, List<Exception> exceptions) {
-		return null;
+		return createDummy(classBindings, fieldBindings);
 	}
 
 	public T createDummy(ClassBindings classBindings, FieldBindings fieldBindings) {

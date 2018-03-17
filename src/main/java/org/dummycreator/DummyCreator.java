@@ -61,6 +61,12 @@ public class DummyCreator {
 		this.fieldBindings = null;
 	}
 
+	/**
+	 * Constructor: configures the Dummy Creator with a given {@link ClassBindings} and {@link FieldBindings} instances and new caches.
+	 * 
+	 * @param classBindings
+	 * @param fieldBindings
+	 */
 	public DummyCreator(ClassBindings classBindings, FieldBindings fieldBindings) {
 		this.fieldBindings = fieldBindings;
 		this.classBindings = classBindings;

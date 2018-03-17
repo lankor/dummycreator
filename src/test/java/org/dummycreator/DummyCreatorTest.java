@@ -507,17 +507,6 @@ public class DummyCreatorTest {
     assertSame(String.class, ((Object)firstItem.getValue()).getClass());
   }
 
-  @Test
-  public void testDummyCreatorBigDecimal() {
-    BigDecimal bigDecimal = dummyCreator.create(BigDecimal.class);
-    assertNotNull(bigDecimal);
-    assertEquals(new BigDecimal(33686018), bigDecimal);
-    dummyCreator = new DummyCreator(ClassBindings.defaultBindings());
-    bigDecimal = dummyCreator.create(BigDecimal.class);
-    assertNotNull(bigDecimal);
-    assertEquals(new BigDecimal(33686018), bigDecimal);
-  }
-
   /**
    * Tests whether the right error will be produced in case an abstract or interface type should be created where no binding is available to indicate the
    * correct implementation.
