@@ -40,6 +40,15 @@ public class FieldBasedFactory<T> extends DummyFactory<T> {
 		return new ClassBasedFactory<T>(this.clazz).createDummy(classBindings);
 	}
 	
+	/**
+	 * 
+	 * @param genericMetaData
+	 * @param knownInstances
+	 * @param classBindings
+	 * @param fieldBindings
+	 * @param exceptions
+	 * @return
+	 */
 	public T createDummy(Type[] genericMetaData, Map<String, ClassUsageInfo<?>> knownInstances,
 			ClassBindings classBindings, FieldBindings fieldBindings, List<Exception> exceptions) {
 		return createDummy(classBindings, fieldBindings);
