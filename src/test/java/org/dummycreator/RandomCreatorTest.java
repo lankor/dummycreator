@@ -11,4 +11,11 @@ public class RandomCreatorTest {
         boolean dummy = random.getRandomBoolean();
         Assert.assertNotNull(dummy);
     }
+
+    @Test
+    public void Test() {
+        Double randomDouble = random.getRandomDouble();
+        Assert.assertTrue(randomDouble > 0);
+        Assert.assertTrue(randomDouble < 100);
+    }
 }
