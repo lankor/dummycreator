@@ -3,6 +3,7 @@ package org.dummycreator.dummyfactories;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
+import org.dummycreator.ClassBindings;
 import org.dummycreator.DummyCreator;
 import org.dummycreator.FieldBindings;
 import org.dummycreator.helperutils.BigDecimalClass;
@@ -25,6 +26,27 @@ public class FieldBasedFactoryTest {
 		Assert.assertNotNull(dummy.getBigDecimalWithRounding());
 		Assert.assertNotNull(dummy.getBigDecimalWithRoundingContext());
 	}
+
+	@Test
+	public void testFieldDummyFactoryFull() {
+		FieldBasedFactory<BigDecimalClass> bigDecimalClassFactory = new FieldBasedFactory<BigDecimalClass>(BigDecimalClass.class);
+        ClassBindings bindigs = ClassBindings.defaultBindings();
+        bindigs.add(BigDecimal.class, new BigDecimalFactory(0d, 10d));
+
+		bigDecimalClassFactory.createDummy(null,null, bindigs, null);
+	}
+
+    @Test
+    public void testFieldDummyFactoryFullField() {
+        FieldBasedFactory<BigDecimalClass> bigDecimalClassFactory = new FieldBasedFactory<BigDecimalClass>(BigDecimalClass.class);
+        ClassBindings bindigs = ClassBindings.defaultBindings();
+        bindigs.add(BigDecimal.class, new BigDecimalFactory(0d, 10d));
+
+        FieldBindings fieldBindings = new FieldBindings();
+        fieldBindings.add("bigDecimalWithMax", new BigDecimalFactory(0d, 10d));
+
+        bigDecimalClassFactory.createDummy(null,null, bindigs, fieldBindings, null);
+    }
 	
 	@Test(expected = IllegalArgumentException.class)
 	public void testFieldDummyFactoryWrongType() {

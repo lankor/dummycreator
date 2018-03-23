@@ -43,10 +43,10 @@ public class FieldBasedFactory<T> extends DummyFactory<T> {
 	/**
 	 * 
 	 * @param genericMetaData
-	 * @param knownInstances
-	 * @param classBindings
+	 * @param knownInstances See {@link DummyFactory#createDummy(Map, ClassBindings, List)}.
+	 * @param classBindings See {@link DummyFactory#createDummy(Map, ClassBindings, List)}.
 	 * @param fieldBindings
-	 * @param exceptions
+	 * @param exceptions See {@link DummyFactory#createDummy(Map, ClassBindings, List)}.
 	 * @return
 	 */
 	public T createDummy(Type[] genericMetaData, Map<String, ClassUsageInfo<?>> knownInstances,
@@ -54,6 +54,12 @@ public class FieldBasedFactory<T> extends DummyFactory<T> {
 		return createDummy(classBindings, fieldBindings);
 	}
 
+	/**
+	 * 
+	 * @param classBindings
+	 * @param fieldBindings
+	 * @return
+	 */
 	public T createDummy(ClassBindings classBindings, FieldBindings fieldBindings) {
 		T retDummy = null;
 		T retField = null;
