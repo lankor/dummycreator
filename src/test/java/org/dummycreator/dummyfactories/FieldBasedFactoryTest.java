@@ -27,6 +27,14 @@ public class FieldBasedFactoryTest {
 		Assert.assertNotNull(dummy.getBigDecimalWithRoundingContext());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testFieldDummyFactoryNullBindings() {
+		FieldBindings bindings = null;
+
+		DummyCreator creator = new DummyCreator(bindings);
+		BigDecimalClass dummy = creator.createByFields(BigDecimalClass.class);
+	}
+
 	@Test
 	public void testFieldDummyFactoryFull() {
 		FieldBasedFactory<BigDecimalClass> bigDecimalClassFactory = new FieldBasedFactory<BigDecimalClass>(BigDecimalClass.class);
