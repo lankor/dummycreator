@@ -23,7 +23,7 @@ public class RandomCreatorTest {
     public void getRandomLong() {
         long maxValue = ((long) Integer.MAX_VALUE + 10000);
         Long randomLong = random.getRandomLong(maxValue);
-        Assert.assertNull(randomLong);
+        Assert.assertNotNull(randomLong);
         Assert.assertTrue(randomLong < maxValue);
     }
 }
