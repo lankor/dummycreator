@@ -13,9 +13,17 @@ public class RandomCreatorTest {
     }
 
     @Test
-    public void Test() {
+    public void getRandomDoubleTest() {
         Double randomDouble = random.getRandomDouble();
         Assert.assertTrue(randomDouble > 0);
         Assert.assertTrue(randomDouble < 100);
+    }
+
+    @Test
+    public void getRandomLong() {
+        long maxValue = ((long) Integer.MAX_VALUE + 10000);
+        Long randomLong = random.getRandomLong(maxValue);
+        Assert.assertNull(randomLong);
+        Assert.assertTrue(randomLong < maxValue);
     }
 }
