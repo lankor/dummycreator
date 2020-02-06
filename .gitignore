@@ -1,10 +1,13 @@
-/target/
-/.settings/
-/**/.project
-/**/.classpath
-/.project
-/.classpath
+# Maven files
+target/
+**/META-INF/
+
+# Eclipse files
+.settings/
 .project
 .classpath
-/.idea/
-*.iml
+
+# IntelliJ files
+.idea/
+**.iml
+
