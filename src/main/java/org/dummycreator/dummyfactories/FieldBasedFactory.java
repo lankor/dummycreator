@@ -60,6 +60,7 @@ public class FieldBasedFactory<T> extends DummyFactory<T> {
 	 * @param fieldBindings
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public T createDummy(ClassBindings classBindings, FieldBindings fieldBindings) {
 		T retDummy = null;
 		T retField = null;
